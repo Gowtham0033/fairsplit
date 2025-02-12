@@ -10,6 +10,8 @@ import UserFriend from "./components/UserFriend";
 import Login from "./components/Login";
 import AllExpenses from "./components/AllExpenses";
 import DashBoard from "./components/DashBoard";
+import Home from "./components/Home";
+
 import { StrictMode, useState, useEffect, createContext } from "react";
 import Cookies from "js-cookie";
 
@@ -41,22 +43,31 @@ const AppLayout = () => {
   const logout = () => {
     setUser(null);
     Cookies.remove("user");
-    window.location.href = "/login"; // .. if you want to redirect to login page everytime user logged out, do this
+    window.location.href = "/"; // .. if you want to redirect to login page everytime user logged out, do this
   };
   return (
     <StrictMode>
       {/* https://react.dev/reference/react/StrictMode */}
       <UserContext.Provider value={{ user, login, logout }}>
-        {/* <Body/> */}
         <Header />
-        <div className="flex justify-center ">
+        {/* <div className="flex justify-center "> */}
+        <div
+          className={`${
+            Cookies.get("user") === undefined ? "" : "flex justify-center "
+          }`}
+        >
           <div className="mr-2">
             <LeftComponents />
           </div>
-          {/* w-[550px] */}
-          <div className="   w-[540px] h-screen shadow-lg">
+          {/* <div className="   w-[540px] "> */}
+          {/* <div className="   w-[540px] h-screen shadow-lg"> */}{" "}
+          {/* changed on 14th jan  */}
+          <div
+            className={`${
+              Cookies.get("user") === undefined ? "" : "w-[540px] min-h-screen shadow-lg "
+            }`}
+          >
             <Outlet />
-            {/* <Register/> */}
           </div>
         </div>
       </UserContext.Provider>
@@ -71,7 +82,7 @@ const AppRoutes = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <DashBoard />,
+        element: <Home />,
       },
       {
         path: "friends/:id",
