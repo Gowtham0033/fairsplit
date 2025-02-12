@@ -49,15 +49,15 @@ const Body = () => {
             <p>Welcome back {userDetails.username}</p>
             <button
               className="bg-orange-600 px-4 py-1 text-md text-white m-2"
-              onClick={() => logout()} 
+              onClick={() => logout()}
             >
               Logout
             </button>
             <Link to={"/all"}>
-              <div className="bg-slate-400 w-[100px] p-1 m-1" >All Expenses</div>
+              <div className="bg-slate-400 w-[100px] p-1 m-1">All Expenses</div>
             </Link>
             <Link to={"/dashboard"}>
-              <div className="bg-slate-400 w-[100px] p-1 m-1" >Dashboard</div>
+              <div className="bg-slate-400 w-[100px] p-1 m-1">Dashboard</div>
             </Link>
             {/* <AllExpenses/> */}
             <AddFriend />
