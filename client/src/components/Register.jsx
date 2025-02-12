@@ -15,7 +15,7 @@ const Register = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [invitedBy,setInvitedBy] = useState("");
+  const [invitedBy, setInvitedBy] = useState("");
   const { login, user } = useContext(UserContext);
   // const [email, setEmail] = useState("");
   console.log("frnd email : ", email);
@@ -35,7 +35,7 @@ const Register = () => {
       alert(jsonData.msg);
       window.location.href = "/register";
     } else {
-      setInvitedBy(jsonData.sender)
+      setInvitedBy(jsonData.sender);
       setEmail(jsonData.recipientEmail);
     }
   };
@@ -63,7 +63,7 @@ const Register = () => {
     const jsonData = await fetch(URL + "/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, email, password,invitedBy }),
+      body: JSON.stringify({ username, email, password, invitedBy }),
     }).then((res) => res.json());
     if (jsonData.msg) {
       alert(jsonData.msg);
@@ -76,56 +76,96 @@ const Register = () => {
     // alert("sdkfkjf")
   };
   return (
-    <div className="h-screen">
-      {Cookies.get("user") !== undefined ? (
-        (window.location.href = "/dashboard")
-      ) : (
-        <div className="flex justify-center items-center h-full ">
-          <div className="  flex flex-col bg-slate-100  w-10/12  p-12 shadow-lg">
-            <h1 className="text-center text-2xl mb-8">Register</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-100 via-white to-green-100">
+      <div className="bg-white shadow-2xl  rounded-lg p-8 w-full max-w-sm">
+        {Cookies.get("user") !== undefined ? (
+          (window.location.href = "/dashboard")
+        ) : (
+          <div>
+            <h1 className="text-3xl font-bold text-center text-green-600 mb-4">
+              Welcome to Splitwise
+            </h1>{" "}
             {/* <label htmlFor="username">username : </label> */}
-            <input
-              className="border border-black p-1"
-              type="text"
-              onChange={(e) => setUsername(e.target.value)}
-              value={username}
-              name="username"
-              placeholder="enter username"
-            />
-            <br />
-            {/* <label htmlFor="username">email : </label> */}
-            <input
-              className="border border-black p-1"
-              type="email"
-              placeholder="enter email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              name="email"
-            />
-            <br />
-            {/* <label htmlFor="username">password : </label> */}
-            <input
-              className="border border-black p-1"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="enter password"
-              name="password"
-            />
-            <div className="mt-2 flex justify-between items-center">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleRegister();
+              }}
+            >
+              <div className="mb-4">
+                <label
+                  htmlFor="username"
+                  className="block text-gray-700 font-medium mb-2"
+                >
+                  Username
+                </label>
+                <input
+                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-400 outline-none"
+                  type="text"
+                  id="username"
+                  onChange={(e) => setUsername(e.target.value)}
+                  value={username}
+                  name="username"
+                  placeholder="enter username"
+                  required
+                />
+              </div>
+              {/* <label htmlFor="username">email : </label> */}
+              <div className="mb-4">
+                <label
+                  htmlFor="email"
+                  className="block text-gray-700 font-medium mb-2"
+                >
+                  Email Address
+                </label>
+                <input
+                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-400 outline-none"
+                  type="email"
+                  id="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  // name="email"
+                />
+              </div>
+              {/* <label htmlFor="username">password : </label> */}
+              <div className="mb-6">
+                <label
+                  htmlFor="Password"
+                  className=" block text-gray-700 font-medium mb-2"
+                >
+                  Password
+                </label>
+                <input
+                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-400 outline-none "
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  required
+                  // name="password"
+                />
+              </div>
               <button
-                className="bg-green-400 text-white p-1"
-                onClick={handleRegister}
+                className="w-full bg-green-800 text-white py-2 rounded-lg hover:bg-green-600 transition duration-300"
+                type="submit"
               >
                 SignUp
               </button>
-              <p className="text-blue-400 text-sm">
-                already a member? <Link to={"/login"}>login</Link>{" "}
+            </form>
+            <div className="mt-4 text-center">
+              <p className="text-gray-700 ">
+                Already a member?{" "}
+                <Link to={"/login"} className="text-green-500">
+                  Login
+                </Link>{" "}
               </p>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
