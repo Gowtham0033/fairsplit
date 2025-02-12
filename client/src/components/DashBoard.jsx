@@ -82,7 +82,7 @@ const DashBoard = () => {
   return (
     <div>
       {Cookies.get("user") === undefined ? (
-        <Login />
+        (window.location.href = "/") // change this to window.href = login
       ) : ShowPage ? (
         <div>
           {showSuccessPopup && (
@@ -183,7 +183,7 @@ const DashBoard = () => {
         </div>
       ) : (
         // <div>Loading</div>
-        <DashboardShimmer/>
+        <DashboardShimmer />
       )}
     </div>
   );
